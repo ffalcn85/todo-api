@@ -23,11 +23,11 @@ func main() {
 
 	router := mux.NewRouter()
 
-	router.HandleFunc("/lists", transport.GetListsHandler).Methods(http.MethodGet)
-	router.HandleFunc("/lists", transport.AddListHandler).Methods(http.MethodPost)
-	router.HandleFunc("/list/{id}", transport.GetListHandler).Methods(http.MethodGet)
-	router.HandleFunc("/list/{id}/tasks", transport.AddTaskHandler).Methods(http.MethodPost)
-	router.HandleFunc("/list/{id}/task/{taskId}/complete", transport.MarkTaskCompleteHandler).Methods(http.MethodPost)
+	router.HandleFunc("/lists", transport.getListsHandler).Methods(http.MethodGet)
+	router.HandleFunc("/lists", transport.addListHandler).Methods(http.MethodPost)
+	router.HandleFunc("/list/{id}", transport.getListHandler).Methods(http.MethodGet)
+	router.HandleFunc("/list/{id}/tasks", transport.addTaskHandler).Methods(http.MethodPost)
+	router.HandleFunc("/list/{id}/task/{taskId}/complete", transport.markTaskCompleteHandler).Methods(http.MethodPost)
 	err := http.ListenAndServeTLS(*url, *cert, *key, router)
 	if err != nil {
 		log.Fatal(err)

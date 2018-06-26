@@ -14,7 +14,7 @@ type httpTransport struct {
 	Lists list.Lists
 }
 
-func (h *httpTransport) GetListsHandler(w http.ResponseWriter, r *http.Request) {
+func (h *httpTransport) getListsHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	filter := vars["searchString"]
 
@@ -41,7 +41,7 @@ func (h *httpTransport) GetListsHandler(w http.ResponseWriter, r *http.Request) 
 	json.NewEncoder(w).Encode(todoLists)
 }
 
-func (h *httpTransport) GetListHandler(w http.ResponseWriter, r *http.Request) {
+func (h *httpTransport) getListHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 	todoList, err := h.Lists.GetList(id)
@@ -56,7 +56,7 @@ func (h *httpTransport) GetListHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(todoList)
 }
 
-func (h *httpTransport) AddListHandler(w http.ResponseWriter, r *http.Request) {
+func (h *httpTransport) addListHandler(w http.ResponseWriter, r *http.Request) {
 	todoList := list.TodoList{}
 	err := json.NewDecoder(r.Body).Decode(&todoList)
 	if err != nil && err.Error() != "EOF" {
@@ -76,7 +76,7 @@ func (h *httpTransport) AddListHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusCreated)
 }
 
-func (h *httpTransport) AddTaskHandler(w http.ResponseWriter, r *http.Request) {
+func (h *httpTransport) addTaskHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	var task list.Task
 	listID := vars["id"]
@@ -98,7 +98,7 @@ func (h *httpTransport) AddTaskHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusCreated)
 }
 
-func (h *httpTransport) MarkTaskCompleteHandler(w http.ResponseWriter, r *http.Request) {
+func (h *httpTransport) markTaskCompleteHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	listID := vars["id"]
 	taskID := vars["taskId"]

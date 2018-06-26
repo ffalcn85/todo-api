@@ -17,10 +17,12 @@ type httpTransport struct {
 func (h *httpTransport) GetListsHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	filter := vars["searchString"]
+
 	max, err := strconv.Atoi(vars["limit"])
 	if err != nil {
 		max = 50
 	}
+
 	skip, err := strconv.Atoi(vars["skip"])
 	if err != nil {
 		skip = 0
@@ -31,6 +33,7 @@ func (h *httpTransport) GetListsHandler(w http.ResponseWriter, r *http.Request) 
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 		w.Write([]byte(err.Error()))
+		return
 	}
 
 	w.WriteHeader(http.StatusOK)
@@ -56,7 +59,7 @@ func (h *httpTransport) GetListHandler(w http.ResponseWriter, r *http.Request) {
 func (h *httpTransport) AddListHandler(w http.ResponseWriter, r *http.Request) {
 	todoList := list.TodoList{}
 	err := json.NewDecoder(r.Body).Decode(&todoList)
-	if err != nil {
+	if err != nil && err.Error() != "EOF" {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 		w.Write([]byte("invalid input, object invalid"))
@@ -78,7 +81,7 @@ func (h *httpTransport) AddTaskHandler(w http.ResponseWriter, r *http.Request) {
 	var task list.Task
 	listID := vars["id"]
 	err := json.NewDecoder(r.Body).Decode(&task)
-	if err != nil {
+	if err != nil && err.Error() != "EOF" {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 		w.Write([]byte("invalid input, object invalid"))

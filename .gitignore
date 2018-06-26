@@ -17,3 +17,6 @@ debug
 
 # Certificate files
 *.crt
+
+# vendor directory as pulled by dep
+vendor/

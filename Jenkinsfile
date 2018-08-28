@@ -1,7 +1,7 @@
 node('docker') {
     checkout scm
     stage('Build') {
-        docker.image('golang-build').inside {
+        docker.image('golang').inside {
             sh 'go version'
             sh 'go build $GOPATH/src/ffalcn85/todo-api/cmd/server/main.go'
         }

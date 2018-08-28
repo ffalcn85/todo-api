@@ -6,7 +6,7 @@ node('docker') {
             sh 'ls $GOPATH/src'
             sh 'ls'
             sh 'mkdir -p $GOPATH/src/github.com/ffalcn85'
-            sh 'cp ../* $GOPATH/src/github.com/ffalcn85'
+            sh 'cp -r ../* $GOPATH/src/github.com/ffalcn85'
             sh 'cd $GOPATH/src/github.com/ffalcn85/todo-api/cmd/server && go build -v'
         }
     }

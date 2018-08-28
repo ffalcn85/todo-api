@@ -3,11 +3,7 @@ node('docker') {
     stage('Build') {
         docker.image('golang').inside {
             sh 'go version'
-            sh 'ls $GOPATH/src'
-            sh 'ls'
-            sh 'mkdir -p $GOPATH/src/github.com/ffalcn85'
-            sh 'cp -r ../* $GOPATH/src/github.com/ffalcn85'
-            sh 'cd $GOPATH/src/github.com/ffalcn85/todo-api/cmd/server && go build -v'
+            sh 'cd todo-api/cmd/server && go build -v'
         }
     }
 

@@ -3,7 +3,7 @@ node('docker') {
     stage('Build') {
         docker.image('golang:1.10-alpine3.7').inside {
             sh 'go version'
-            sh 'docker run --rm -v "$PWD":/usr/src/myapp -w /usr/src/github.com/ffalcn85/todo-api golang:1.8 go build -v'
+            sh 'go build -v /usr/src/github.com/ffalcn85/todo-api'
         }
     }
 

@@ -6,10 +6,8 @@ node('docker') {
             sh 'ls $GOPATH/src'
             sh 'ls'
             sh 'mkdir -p $GOPATH/src/github.com/ffalcn85'
-            sh 'cd $GOPATH/src/github.com/ffalcn85'
-            sh 'cd $GOPATH/src/github.com/ffalcn85 && git clone http://github.com/ffalcn85/todo-api'
-            sh 'cd $GOPATH/src/github.com/ffalcn85/todo-api/cmd/server'
-            sh 'go build -v'
+            sh 'mv .. $GOPATH/src/github.com/ffalcn85'
+            sh 'cd $GOPATH/src/github.com/ffalcn85/todo-api/cmd/server && go build -v'
         }
     }
 

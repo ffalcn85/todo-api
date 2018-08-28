@@ -4,8 +4,10 @@ node('docker') {
         docker.image('golang').inside {
             sh 'go version'
             sh 'ls $GOPATH/src'
-            sh 'go get github.com/ffalcn85/todo-api'
-            sh 'cd $GOPATH/src/github.com/ffalcn85/todo-api/cmd/server'
+            sh 'mkdir $GOPATH/src/github.com'
+            sh 'cd $GOPATH/src/github.com'
+            sh 'git clone http://github.com/ffalcn85/todo-api'
+            sh 'cd ffalcn85/todo-api/cmd/server'
             sh 'go build -v'
         }
     }

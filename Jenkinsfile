@@ -1,4 +1,4 @@
-todo-apiTemplate {
+todoapiTemplate {
     def buildPath = "/go/src/github.com/ffalcn85/todo-api"
     dir(buildPath) {    
         node('docker') {
